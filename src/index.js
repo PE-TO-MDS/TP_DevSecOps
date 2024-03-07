@@ -7,7 +7,7 @@ app.use(express.json());
 
 // Redirection de la racine vers /gifts
 app.get('/', (req, res) => {
-    res.redirect('/gifts');
+    res.redirect('/api/gifts');
 });
 
 app.use((req, res, next) => {
