@@ -1,5 +1,5 @@
 const express = require('express');
-const giftListController = require('../controllers/giftListController');
+const giftController = require('../controllers/giftListController');
 const router = express.Router();
 
 router.get('/gifts', giftController.getAllGifts);

@@ -1,4 +1,4 @@
-const giftModel = require('../model/gift');
+const giftModel = require('../models/giftListModel');
 
 const giftController = {
     getAllGifts: async (req, res) => {
