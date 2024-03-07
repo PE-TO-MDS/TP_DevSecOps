@@ -1,40 +1,24 @@
 const express = require('express');
-const mysql = require('mysql2/promise');
 const giftListRoutes = require('./api/routes/giftListRoutes');
+const giftListModel = require('./api/models/giftListModel');
 
 const app = express();
-app.use(express.json()); // pour parser les corps de requêtes JSON
+app.use(express.json());
 
-
-async function main() {
-  const connection = await mysql.createConnection({
-      host: 'db', // ou 'localhost' si local
-      user: 'root',
-      password: 'password',
-      database: 'CadeauxAnniv'
-  });
-  
-    console.log('Connexion à MySQL réussie !');
-
-    app.use((req, res, next) => {
-        req.db = connection;
-        next();
-    });
-
-    app.use('/api', giftListRoutes);
-
-    const port = process.env.PORT || 3000;
-    app.listen(port, () => {
-        console.log(`Server running on port ${port}`);
-    });
-}
-
-main().catch(err => {
-    console.error('Erreur de connexion à la base de données:', err);
+// Redirection de la racine vers /gifts
+app.get('/', (req, res) => {
+    res.redirect('/gifts');
 });
 
+app.use((req, res, next) => {
+    req.db = giftListModel.pool;
+    next();
+});
 
+// Assurez-vous que la route /gifts est définie dans giftListRoutes
+app.use('/api', giftListRoutes);
 
-
-
-
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+});
