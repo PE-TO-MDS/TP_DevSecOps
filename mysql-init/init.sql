@@ -1,4 +1,9 @@
+CREATE USER 'root'@'%' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON CadeauxAnniv.* TO 'root'@'%';
+FLUSH PRIVILEGES;
+
 USE CadeauxAnniv;
+
 CREATE TABLE IF NOT EXISTS `gifts` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `name` VARCHAR(255) NOT NULL,
